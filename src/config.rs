@@ -70,6 +70,12 @@ lazy_static::lazy_static! {
     pub static ref PROD_RENDEZVOUS_SERVER: RwLock<String> = RwLock::new("".to_owned());
     pub static ref EXE_RENDEZVOUS_SERVER: RwLock<String> = Default::default();
     pub static ref APP_NAME: RwLock<String> = RwLock::new("GateDesk".to_owned());
+    // True only when a valid, signed custom-client config (`custom.txt` / Flutter
+    // `custom_client_config`) has been loaded. Decouples "this is a rebranded
+    // client" from `APP_NAME`, because a stock build's app name is now "GateDesk"
+    // rather than "RustDesk" — so app-name string comparison can no longer serve
+    // as the custom-client sentinel.
+    pub static ref CUSTOM_CLIENT: RwLock<bool> = RwLock::new(false);
     static ref KEY_PAIR: Mutex<Option<KeyPair>> = Default::default();
     static ref USER_DEFAULT_CONFIG: RwLock<(UserDefaultConfig, Instant)> = RwLock::new((UserDefaultConfig::load(), Instant::now()));
     pub static ref NEW_STORED_PEER_CONFIG: Mutex<HashSet<String>> = Default::default();
