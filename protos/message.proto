@@ -696,6 +696,14 @@ message OptionMessage {
   BoolOption disable_camera = 17;
   BoolOption terminal_persistent = 18;
   BoolOption show_my_cursor = 19;
+
+  // A request from the controller that a named permission be turned on for this session.
+  //
+  // Not a setting: it says "may I", not "I want this off", which is what the disable_*
+  // fields above say. The controlled side asks its local user and the answer comes back as
+  // a `PermissionInfo` carrying the granted state, so nothing has to be added for the way
+  // back. Empty means no request.
+  string request_permission = 20;
 }
 
 message TestDelay {
